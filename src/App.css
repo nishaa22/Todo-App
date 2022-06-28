@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+.fa-trash-alt:hover{
+  color: red;
+}
+.fa-edit:hover{
+  color:blue
+}
+.dataButton:hover{
+  background-color: rgb(9, 9, 88);
+}
+#edit{
+  width:90%
+}
