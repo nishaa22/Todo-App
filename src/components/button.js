@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Button = (props) => {
-  const { name, handleShowList } = props;
+const Button = ({ name, handleShowList }) => {
   return (
     <button
       type="submit"
@@ -19,6 +18,6 @@ Button.propTypes = {
 };
 Button.defaultProp = {
   name: "",
-  handleShowList: () => {},
+  handleShowList: () => { },
 };
 export default Button;

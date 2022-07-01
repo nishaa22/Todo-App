@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Checkbox = (props) => {
-  const { handleCheck, isCompleted, id } = props;
+const Checkbox = ({ handleCheck, isCompleted, id }) => {
   return (
     <>
       <input

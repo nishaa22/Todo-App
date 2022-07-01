@@ -1,48 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Button from "./button";
 import Form from "./form";
 import List from "./list";
 import { getListType } from "../util";
 import { BUTTON_NAME } from "../constant/index";
-const Todos = () => {
-  const [task, setTask] = useState("");
-  const [listType, setListType] = useState("");
-  const [todoList, setTodoList] = useState({
-    taskList: [],
-    completedList: [],
-    incompletedList: [],
-  });
-  const [isEdit, setIsEdit] = useState("");
+import useEdit from "../hooks/useEdit";
+import useTask from "../hooks/useTask";
+import useListType from "../hooks/useListType";
+import useTodoList from "../hooks/useTodoList";
+import useLocalStorage from "../hooks/useLocalStorage";
 
-  useEffect(() => {
-    if (localStorage.getItem("todoList")) {
-      setTodoList(JSON.parse(localStorage.getItem("todoList")));
-    }
-  }, []);
+const Todos = () => {
+  const { task, change, reset } = useTask("");
+  const { clear, listType, setListType } = useListType("");
+  const { todoList, setTodoList } = useTodoList([])
+  const {setValue}= useLocalStorage("todoList",todoList.taskList)
+  const { isEdit, setIsEdit, handleEdit } = useEdit("");
+
+  // useEffect(() => {
+  //   if (localStorage.getItem("todoList")) {
+  //     setTodoList(JSON.parse(localStorage.getItem("todoList")));
+  //   }
+  // }, []);
+  // if (localStorage.getItem("todoList")) {
+  //       setTodoList(JSON.parse(localStorage.getItem("todoList")));
+  //     }
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setTodoList((prev) => {
-      localStorage.setItem(
-        "todoList",
-        JSON.stringify({
-          ...prev,
-          taskList: [
-            ...prev.taskList,
-            { id: Math.random(), name: task, isCompleted: false },
-          ],
-        })
-      );
-      return {
-        ...prev,
-        taskList: [
-          ...prev.taskList,
-          { id: Math.random(), name: task, isCompleted: false },
-        ],
-      };
-    });
-    setTask("");
-    setListType("");
-  };
+        return {
+            ...prev,
+            taskList: [
+                ...prev.taskList,
+                { id: Math.random(), name: task, isCompleted: false }
+            ],
+            
+        }
+    })
+    reset();
+    clear();
+}
+
+useEffect(() => {
+  setValue(todoList.taskList)
+ },[todoList.taskList])
+
   const handleDelete = (id) => {
     const afterDeleteList = todoList.taskList
       .filter((val) => val.id !== id)
@@ -55,11 +57,9 @@ const Todos = () => {
         taskList: afterDeleteList,
       };
     });
-    setListType("");
+    clear();
   };
-  const handleEdit = (id) => {
-    setIsEdit(id);
-  };
+
   const handleEditList = (e) => {
     const updatedList = todoList.taskList.map((val) => {
       if (val.id === isEdit) {
@@ -92,7 +92,7 @@ const Todos = () => {
         taskList: updatedList,
       };
     });
-    setListType("");
+    clear();
   };
   const handleShowList = ({ type }) => {
     if (type === "Completed" || "Incompleted") {
@@ -118,7 +118,7 @@ const Todos = () => {
           ...prev,
         };
       });
-      setListType("");
+      clear();
     }
   };
   return (
@@ -129,9 +129,8 @@ const Todos = () => {
         <Form
           handleSubmit={handleSubmit}
           task={task}
-          setTask={(e) => setTask(e.target.value)}
+          setTask={change}
         />
-        <hr className="ms-4" />
         <List
           setIsEdit={setIsEdit}
           handleDelete={handleDelete}

@@ -1,8 +1,7 @@
 import { PropTypes } from "prop-types";
 import React from "react";
 
-const Icons = (props) => {
-  const { handleEdit, type, id } = props;
+const Icons = ({ handleEdit, type, id }) => {
   return (
     <>
       <i
@@ -20,7 +19,7 @@ Icons.protoTypes = {
   id: PropTypes.number,
 };
 Icons.defaultProp = {
-  handleEdit: () => {},
+  handleEdit: () => { },
   type: "",
   id: 0,
 };

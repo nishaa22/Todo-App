@@ -1,16 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Badge = (props) => {
-  const { isCompleted = false } = props;
+const Badge = ({ isCompleted = false }) => {
   return (
     <>
-      <span className="mx-5">{isCompleted ? "" : ""}</span>
-      {isCompleted && (
+      {isCompleted ? (
         <div id="badge" className="float-end">
           <span className="badge bg-secondary mx-2">Completed</span>
         </div>
-      )}
+      ):""}
     </>
   );
 };

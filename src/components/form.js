@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Input from "./input";
 
-const Form = (props) => {
-  const { handleSubmit, task, setTask } = props;
+const Form = ({ handleSubmit, task, setTask }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>

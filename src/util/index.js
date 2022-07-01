@@ -1,6 +1,6 @@
 export const getListType = (todoList, listType) => {
-    const {completedList,incompletedList,taskList}=todoList
-    let list = []
+    const { completedList, incompletedList, taskList } = todoList
+    let list = [];
     if (listType === 'Completed') {
         list = completedList
         return list
