@@ -42,7 +42,10 @@ const Todos = () => {
 }
 
 useEffect(() => {
-  setValue(todoList.taskList)
+    if(todoList.taskList.length > 0)
+    {
+      setValue(todoList.taskList)
+    }   
  },[todoList.taskList])
 
   const handleDelete = (id) => {

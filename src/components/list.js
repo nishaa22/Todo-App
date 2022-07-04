@@ -14,9 +14,13 @@ const List = (props) => {
     handleEdit,
     handleEditList,
   } = props;
+
+  let getData  = localStorage.getItem("todoList");
+   console.log(getListType(todolist, listType),'asdfasdf',JSON.parse(getData))
   return (
     <>
-      {getListType(todolist, listType).map((val, index) => {
+      {JSON.parse(getData)?.map((val, index) => {
+          console.log(val,'dataaaa')
         return (
           <FormData
             handleCheck={handleCheck}

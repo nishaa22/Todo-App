@@ -14,6 +14,7 @@ import { useState} from "react";
       }
     });
     const setValue = (value) => {
+      console.log("setvalue Calling")
       try {
         const valueToStore =
           value instanceof Function ? value(storedValue) : value;
